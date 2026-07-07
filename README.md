@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
@@ -56,3 +57,14 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+=======
+# AIK-4-Website-Panduan-Solat-dan-Doa-Muhammadiyah
+Repository untuk mata kuliah AIK 4 
+Repository ini dibuat guna menyelesaikan tugas akhir mata kullah AIK 4
+Adapun kelompok kami terdiri dari 5 orang yaitu
+1. Syafiq
+2. Iksan
+3. Ferry Dharmawansyah
+4. Abiyyu Farras
+5. Yoga Prasetyawan
+>>>>>>> 73985c71c2a8e84c173ca7e7d2bf3025eaf6c3c9
