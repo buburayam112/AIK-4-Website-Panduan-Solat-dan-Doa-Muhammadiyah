@@ -62,9 +62,8 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 Repository untuk mata kuliah AIK 4 
 Repository ini dibuat guna menyelesaikan tugas akhir mata kullah AIK 4
 Adapun kelompok kami terdiri dari 5 orang yaitu
-1. Syafiq
-2. Iksan
+1. Syafiq Indirwan
+2. Iksan Nugraha
 3. Ferry Dharmawansyah
 4. Abiyyu Farras
-5. Yoga Prasetyawan
 >>>>>>> 73985c71c2a8e84c173ca7e7d2bf3025eaf6c3c9
