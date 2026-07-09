@@ -2,120 +2,61 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Gerakan;
 use Illuminate\Http\Request;
-use Illuminate\Http\JsonResponse;
+use App\Models\Kategori;
+use App\Models\Gerakan;
 
 class GerakanController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Menampilkan halaman awal untuk memilih Mode (Dewasa / Anak-anak)
      */
-    public function index(): JsonResponse
+    public function pilihMode()
     {
-        $gerakan = Gerakan::with(['kategori', 'bacaan'])->orderBy('urutan')->get();
-        return response()->json([
-            'success' => true,
-            'message' => 'Daftar gerakan berhasil diambil',
-            'data' => $gerakan
-        ]);
+        // Mengambil semua data kategori (Dewasa & Anak) dari database
+        $kategori = \App\Models\Kategori::all();
+        
+        // Mengirim data tersebut ke file home.blade.php
+        return view('home', compact('kategori')); 
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Menampilkan daftar urutan gerakan berdasarkan mode yang dipilih
      */
-    public function store(Request $request): JsonResponse
+    public function daftarGerakan($id_kategori)
     {
-        $validated = $request->validate([
-            'id_kategori' => 'required|exists:kategori,id',
-            'nama' => 'required|string|max:255',
-            'urutan' => 'required|integer|min:1',
-            'deskripsi' => 'required|string',
-            'gambar_url' => 'nullable|url|max:255',
-            'video_url' => 'nullable|url|max:255',
-        ]);
+        $kategori = Kategori::findOrFail($id_kategori);
+        
+        // Mengambil semua gerakan pada kategori tersebut, diurutkan berdasarkan kolom 'urutan'
+        $gerakan = Gerakan::where('id_kategori', $id_kategori)
+                          ->orderBy('urutan', 'asc')
+                          ->get();
 
-        $gerakan = Gerakan::create($validated);
-
-        return response()->json([
-            'success' => true,
-            'message' => 'Gerakan berhasil dibuat',
-            'data' => $gerakan
-        ], 201);
+        // Memanggil file view: resources/views/daftar_gerakan.blade.php
+        return view('daftar_gerakan', compact('kategori', 'gerakan'));
     }
 
     /**
-     * Display the specified resource.
+     * Menampilkan halaman detail 1 gerakan (termasuk 4 lapis bacaan dan media)
      */
-    public function show(string $id): JsonResponse
+    public function detailGerakan($id_gerakan)
     {
-        $gerakan = Gerakan::with(['kategori', 'bacaan'])->find($id);
+        // Mengambil detail gerakan sekaligus memuat relasi 'bacaan' (Eager Loading)
+        $gerakan = Gerakan::with('bacaan')->findOrFail($id_gerakan);
+        
+        // Logika untuk tombol NEXT: Cari gerakan dengan urutan lebih besar
+        $next = Gerakan::where('id_kategori', $gerakan->id_kategori)
+                       ->where('urutan', '>', $gerakan->urutan)
+                       ->orderBy('urutan', 'asc')
+                       ->first();
+                       
+        // Logika untuk tombol PREVIOUS: Cari gerakan dengan urutan lebih kecil
+        $prev = Gerakan::where('id_kategori', $gerakan->id_kategori)
+                       ->where('urutan', '<', $gerakan->urutan)
+                       ->orderBy('urutan', 'desc')
+                       ->first();
 
-        if (!$gerakan) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Gerakan tidak ditemukan'
-            ], 404);
-        }
-
-        return response()->json([
-            'success' => true,
-            'message' => 'Detail gerakan berhasil diambil',
-            'data' => $gerakan
-        ]);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id): JsonResponse
-    {
-        $gerakan = Gerakan::find($id);
-
-        if (!$gerakan) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Gerakan tidak ditemukan'
-            ], 404);
-        }
-
-        $validated = $request->validate([
-            'id_kategori' => 'required|exists:kategori,id',
-            'nama' => 'required|string|max:255',
-            'urutan' => 'required|integer|min:1',
-            'deskripsi' => 'required|string',
-            'gambar_url' => 'nullable|url|max:255',
-            'video_url' => 'nullable|url|max:255',
-        ]);
-
-        $gerakan->update($validated);
-
-        return response()->json([
-            'success' => true,
-            'message' => 'Gerakan berhasil diperbarui',
-            'data' => $gerakan
-        ]);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id): JsonResponse
-    {
-        $gerakan = Gerakan::find($id);
-
-        if (!$gerakan) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Gerakan tidak ditemukan'
-            ], 404);
-        }
-
-        $gerakan->delete();
-
-        return response()->json([
-            'success' => true,
-            'message' => 'Gerakan berhasil dihapus'
-        ]);
+        // Memanggil file view: resources/views/detail_gerakan.blade.php
+        return view('detail_gerakan', compact('gerakan', 'next', 'prev'));
     }
 }
