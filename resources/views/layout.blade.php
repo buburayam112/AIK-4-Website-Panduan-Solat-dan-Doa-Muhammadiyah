@@ -6,7 +6,7 @@
     <title>@yield('title')</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Animasi tambahan untuk elemen melayang */
+        /* Animasi tambahan untuk elemen melayang */ # Animasi perbagus web
         @keyframes blob {
             0% { transform: translate(0px, 0px) scale(1); }
             33% { transform: translate(30px, -50px) scale(1.1); }
