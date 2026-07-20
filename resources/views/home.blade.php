@@ -26,39 +26,5 @@
     <p class="text-gray-500 max-w-lg mx-auto">Sesuaikan tampilan, ilustrasi, dan bahasa panduan dengan audiens pengguna.</p>
 </div>
 
-<div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-    @foreach($kategori as $kat)
-        @if($kat->nama == 'Dewasa')
-            <a href="{{ route('panduan.daftar', $kat->id) }}" class="group relative bg-white rounded-3xl p-8 shadow-lg hover:shadow-2xl hover:-translate-y-2 border border-gray-100 transition-all duration-300 overflow-hidden cursor-pointer">
-                <div class="absolute inset-0 bg-gradient-to-br from-transparent to-emerald-50/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <div class="absolute -right-8 -top-8 w-32 h-32 bg-emerald-50 rounded-full group-hover:scale-150 transition-transform duration-500 ease-in-out"></div>
-                
-                <div class="relative z-10 flex flex-col items-center">
-                    <div class="w-20 h-20 bg-emerald-100 rounded-2xl flex items-center justify-center mb-6 text-emerald-600 group-hover:bg-emerald-600 group-hover:text-white group-hover:rotate-6 transition-all duration-300 shadow-sm">
-                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
-                    </div>
-                    <h3 class="text-2xl font-bold text-gray-800 mb-3 group-hover:text-emerald-700 transition-colors">Mode Dewasa</h3>
-                    <p class="text-gray-500 text-center text-sm leading-relaxed">
-                        Panduan komprehensif dengan teks formal, rujukan dalil kitab lengkap.
-                    </p>
-                </div>
-            </a>
-        @else
-            <a href="{{ route('panduan.daftar', $kat->id) }}" class="group relative bg-white rounded-3xl p-8 shadow-lg hover:shadow-2xl hover:-translate-y-2 border border-gray-100 transition-all duration-300 overflow-hidden cursor-pointer">
-                <div class="absolute inset-0 bg-gradient-to-br from-transparent to-yellow-50/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <div class="absolute -right-8 -top-8 w-32 h-32 bg-yellow-50 rounded-full group-hover:scale-150 transition-transform duration-500 ease-in-out"></div>
-                
-                <div class="relative z-10 flex flex-col items-center">
-                    <div class="w-20 h-20 bg-yellow-100 rounded-2xl flex items-center justify-center mb-6 text-yellow-500 group-hover:bg-yellow-400 group-hover:text-white group-hover:-rotate-6 transition-all duration-300 shadow-sm">
-                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                    </div>
-                    <h3 class="text-2xl font-extrabold text-gray-800 mb-3 group-hover:text-yellow-600 transition-colors">Mode Anak-anak</h3>
-                    <p class="text-gray-500 text-center text-sm leading-relaxed">
-                        Panduan yang menyenangkan dengan bahasa ceria, ilustrasi visual, dan terjemahan sederhana.
-                    </p>
-                </div>
-            </a>
-        @endif
-    @endforeach
-</div>
+
 @endsection
